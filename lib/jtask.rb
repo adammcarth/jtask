@@ -12,18 +12,9 @@ class JTask
   require "json"
 
   # Modules
-  require "jtask/get"
-  require "jtask/save"
-  require "jtask/update"
-  require "jtask/destroy"
-  require "jtask/chop"
-  require "jtask/rename"
-  require "jtask/kill"
-  extend Save
-  extend Get
-  extend Update
-  extend Destroy
-  extend Chop
-  extend Rename
-  extend Kill
+  modules = ["save", "get", "update", "destroy", "chop", "rename", "kill"]
+  modules.each do |m|
+    require "jtask/#{m}"
+    extend m.capitalize
+  end
 end
