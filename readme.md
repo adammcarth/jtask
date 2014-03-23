@@ -2,6 +2,8 @@
 
 JTask provides CRUD actions for storage of data in JSON format inside text files. It's very useful for times when databases cannot be used to store data, or a simple storage & retrieval mechanism is required. It can act just like a database, check it out:
 
+    require "jtask"
+    
     JTask.save("preferences", {background_color: "black", font_size: "medium"})
     #=> true
 
