@@ -1,4 +1,4 @@
 *.gem
 tmp
 doc
-DS_Store
+.DS_Store
