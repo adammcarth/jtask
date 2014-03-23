@@ -12,7 +12,13 @@ class JTask
   require "json"
 
   # Modules
-  Dir["./jtask/*.rb"].each {|file| require file }
+  require "jtask/get"
+  require "jtask/save"
+  require "jtask/update"
+  require "jtask/destroy"
+  require "jtask/chop"
+  require "jtask/rename"
+  require "jtask/kill"
   extend Save
   extend Get
   extend Update
