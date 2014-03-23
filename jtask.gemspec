@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.version     = '0.0.1'
   s.platform    = Gem::Platform::RUBY
   s.date        = '2014-03-23'
-  s.summary     = "Provides CRUD actions for JSON files, plus a few extra goodies."
-  s.description = "CRUD actions for JSON files."
+  s.description = "Provides CRUD actions for JSON files, plus a few extra goodies."
+  s.summary     = "CRUD actions for JSON files."
   s.authors     = ["Adam McArthur"]
   s.email       = 'adam@adammcarthur.net'
   s.homepage    = 'https://github.com/adammcarthur/jtask'
