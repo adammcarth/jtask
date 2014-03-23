@@ -1,0 +1,3 @@
+1. Setup a dynamic method handler to make the JTask.get() method cleaner when selecting hash elements. Eg - JTask.get("email_subscribers", 5).email
+
+For more information, see ActiveRecord's implementation of method_missing().
