@@ -1,3 +1,5 @@
+Current List To Transition From Beta Into Stable:
+
 1. Setup a dynamic method handler to make the JTask.get()
 method cleaner when selecting hash elements.
 
@@ -10,3 +12,5 @@ For more information, see ActiveRecord's implementation of method_missing().
 3. Allow users to set the default directory.
 
 4. Clean up repeated code!!!
+
+5. Make file writes more efficient (to prevent scaling issues). Currently, files are completely re-written with the new version on save(), update(), chop() and destroy().
