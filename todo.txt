@@ -4,3 +4,9 @@ method cleaner when selecting hash elements.
 Eg - JTask.get("email_subscribers", 5).email
 
 For more information, see ActiveRecord's implementation of method_missing().
+
+2. Add an encryption feature?
+
+3. Allow users to set the default directory.
+
+4. Clean up repeated code!!!
