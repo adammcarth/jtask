@@ -15,6 +15,13 @@ class JTask
   modules = ["save", "get", "update", "destroy", "chop", "rename", "kill"]
   modules.each do |m|
     require "jtask/#{m}"
-    extend m.capitalize
   end
+  
+  extend Save
+  extend Get
+  extend Update
+  extend Destroy
+  extend Chop
+  extend Rename
+  extend Kill
 end
