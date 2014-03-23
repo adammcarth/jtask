@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.files       = `git ls-files`.split($/)
   s.require_paths = ["lib"]
-  s.add_runtime_dependency "json", ">= 1.4.0"
+  s.add_runtime_dependency "json", "~> 1.4"
   s.post_install_message = "\n\nThanks for installing JTask. Check out the documentation and contribute at https://github.com/adammcarthur/jtask\n- Adam\n\n-"
 end
