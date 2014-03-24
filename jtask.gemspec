@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'jtask'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.platform    = Gem::Platform::RUBY
   s.date        = '2014-03-23'
   s.description = "Provides CRUD actions for JSON files, plus a few extra goodies."
