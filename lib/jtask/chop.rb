@@ -10,7 +10,7 @@ module Chop
 
     # Quality control - ensure paramter is a string
     unless parameter.is_a?(String)
-      raise SyntaxError, "The chop() method can only remove one parameter at a time\n               - only a string can be used to specify the parameter.\n\n-"
+      raise SyntaxError, "[JTask] The chop() method can only remove one parameter at a time - only a string can be used to specify the parameter."
     end
 
     if id.is_a?(Integer)
@@ -20,7 +20,7 @@ module Chop
         insert = objects
         insert["#{id}"] = removed_version
       else
-        raise NameError, "\n\nJTask Error => The id #{method} could not be found in the\n               file \"#{dir + filename}\". The file has not been changed.\n\n-"
+        raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\". The file has not been changed."
       end
     elsif id == :all
       # Parameter must be removed from all objects
@@ -30,7 +30,7 @@ module Chop
       end
     insert = objects
     else
-      raise NameError, "/n/nJTask Error => Incorrect id method used. A single id (integer) can be specified,\n               or the symbol \":all\" to remove the parameter from every object.\n\n-"
+      raise NameError, "[JTask] Incorrect id method used. A single id (integer) can be specified, or the symbol \":all\" to remove the parameter from every object."
     end
 
      # Re-write the file with the new version.

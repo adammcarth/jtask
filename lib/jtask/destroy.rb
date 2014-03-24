@@ -13,7 +13,7 @@ module Destroy
       insert = objects.tap{ |x| x.delete("#{id}") }
     else
       # the id doesn't exist in the file
-      raise NameError, "\n\nJTask Error => An id of #{id} does not exsist in the file specified at\n               \"#{dir + filename}\". Nothing has been deleted.\n\n-"
+      raise NameError, "[JTask] An id of #{id} does not exsist in the file specified at \"#{dir + filename}\". Nothing has been deleted."
     end
 
     # Re-write the file with the new version.

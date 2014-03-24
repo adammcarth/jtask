@@ -14,10 +14,9 @@ module Get
         # Check if 'method' (in this case the single id to retrieve) exists.
         if objects["#{method}"]
           output = {"id" => "#{method}"}.merge(objects["#{method}"])
-          # Old objects.select { |k, v| k == "#{method}" }
         else
           # id supplied doesn't exist
-          raise NameError, "\n\nJTask Error => The id #{method} could not be found in\n               the file \"#{dir + filename}\".\n\n-"
+          raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\"."
         end
       elsif method.is_a?(Hash)
         if method[:first]
@@ -27,10 +26,10 @@ module Get
           # Load the LAST n number of objects from the file
           output = Hash[(objects.to_a).last(method[:last].to_i).reverse] # wow!
         else
-          raise NameError, "\n\nJTask Error => Invalid get method specified. Try using\n               JTask.get(\"filename\", last: 10) instead.\n\n-" 
+          raise NameError, "[JTask] Invalid get method specified. Try using JTask.get(\"filename\", last: 10) instead." 
         end
       else
-        raise NameError, "\n\nJTask Error => Invalid get method specified. Try using\n               JTask.get(\"filename\", 1) instead.\n\n-"
+        raise NameError, "[JTask] Invalid get method specified. Try using JTask.get(\"filename\", 1) instead."
       end
     else
       # No retrieval method supplied, so output all the objects from the file :)

@@ -12,7 +12,7 @@ module Save
     end
     # Validate haash supplied for parameters
     unless parameters.is_a?(Hash)
-      raise SyntaxError, "\n\nJTask Error => Invalid value supplied to the parameters variable.\n               Ensure your parameters are in a symbol hash form\n               like - {name: \"Adam\", city: \"Melbourne\"}\n\n-"
+      raise SyntaxError, "[JTask] Invalid value supplied to the parameters variable. Ensure your parameters are in the symbol hash form, eg - {name: \"Adam\", city: \"Melbourne\"}"
     end
     
     original_file = File.read(File.join(dir, filename))
