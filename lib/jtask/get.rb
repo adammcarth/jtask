@@ -1,3 +1,6 @@
+# JTask.get() by Adam McArthur
+# Retrieves stored JSON data from the file and returns a hash.
+
 module Get
   def get(filename, method=nil, dir=nil)
     # Check if user has specified a custom directory.
@@ -7,35 +10,50 @@ module Get
     end
     original_file = File.read(File.join(dir, filename))
     objects = JSON.parse(original_file)
-    
-    if method
-      # Determine if an id integer or {first: - last:} hash method has been supplied.
-      if method.is_a?(Integer)
-        # Check if 'method' (in this case the single id to retrieve) exists.
-        if objects["#{method}"]
-          output = {"id" => "#{method}"}.merge(objects["#{method}"])
-        else
-          # id supplied doesn't exist
-          raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\"."
-        end
-      elsif method.is_a?(Hash)
-        if method[:first]
-          # Load the FIRST n number of objects from the file
-          output = Hash[(objects.to_a).first(method[:first].to_i)]
-        elsif method[:last]
-          # Load the LAST n number of objects from the file
-          output = Hash[(objects.to_a).last(method[:last].to_i).reverse] # wow!
-        else
-          raise NameError, "[JTask] Invalid get method specified. Try using JTask.get(\"filename\", last: 10) instead." 
-        end
+
+    # Work out which retrieval method is wanted.
+    # An integer indicates we want to find a single record by id.
+    # A hash indicates the first/last method has been used.
+
+    # Check for integer
+    if method.is_a?(Integer)
+      # Our method will be the id - lets alias it:
+      id = method
+
+      if objects["#{id}"]
+        output = { "id" => id.to_i }.merge(objects["#{id}"])
       else
-        raise NameError, "[JTask] Invalid get method specified. Try using JTask.get(\"filename\", 1) instead."
+        # id supplied doesn't exist
+        raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\"."
       end
     else
-      # No retrieval method supplied, so output all the objects from the file :)
-      output = objects
+      # Method could be either blank, invalid or a "first/last" hash.
+      begin
+        # Treat method as a hash
+        # Assemble hashes of the required records, as specified by the user.
+        if method[:first]
+          required_records = Hash[(objects.to_a).first(method[:first].to_i)]
+        elsif method[:last]
+          required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse] # wow!
+        end
+      # Rescue to prevent '[]' nil class error if method is empty
+      rescue
+        if method == nil
+          # We want all the records since no get method is supplied
+          required_records = objects
+        else
+          # Unrecognisable value used as the method, crash immediatly.
+          raise SyntaxError, "[JTask] Invalid value given for the get method."
+        end
+      end
+      # Loop through each required record and
+      # push each one to the blank output array.
+      output = []
+      required_records.each do |id, record|
+        output.push({ "id" => id.to_i }.merge(record))
+      end
     end
-    
+
     return output
   end
 end
