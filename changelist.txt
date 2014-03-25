@@ -1,4 +1,10 @@
-0.0.2 [Beta] [Current Version]
+0.1.0 [Beta] [Current Version]
+=====================================
+- Released a major bug fix regarding the `JTask.get()` method (see: https://github.com/adammcarthur/jtask/issues/1)
+- Minor code enhancements to the Get module.
+- Error messages have been reformatted for both web and console use.
+
+0.0.2 [Beta]
 =====================================
 - Swapped gemspec description and summary (mix up error).
 
