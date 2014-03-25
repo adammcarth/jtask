@@ -1,5 +1,5 @@
 ###########################################################################
-# ` JTask v0.0.1 Beta                                                   ` #
+# ` JTask v0.1.0 Beta                                                   ` #
 # ` Provides CRUD actions for JSON files, plus a few extra goodies.     ` #
 # ` Created by Adam McArthur (@adammcarth)                              ` #
 # ` Released under the MIT licence                                      ` #
@@ -16,7 +16,7 @@ class JTask
   modules.each do |m|
     require "jtask/#{m}"
   end
-  
+
   extend Save
   extend Get
   extend Update
