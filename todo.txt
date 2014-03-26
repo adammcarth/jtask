@@ -14,3 +14,5 @@ For more information, see ActiveRecord's implementation of method_missing().
 4. Clean up repeated code!!!
 
 5. Make file writes more efficient (to prevent scaling issues). Currently, files are completely re-written with the new version on save(), update(), chop() and destroy().
+
+6. Change hash outputs to openstructs.
