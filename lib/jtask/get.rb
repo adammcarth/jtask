@@ -21,7 +21,7 @@ module Get
       id = method
 
       if objects["#{id}"]
-        output = { "id" => id.to_i }.merge(objects["#{id}"])
+        output = OpenStruct.new({ "id" => id.to_i }.merge(objects["#{id}"]))
       else
         # id supplied doesn't exist
         raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\"."
@@ -47,11 +47,9 @@ module Get
         end
       end
       # Loop through each required record and
-      # push each one to the blank output array.
-      output = []
-      required_records.each do |id, record|
-        output.push({ "id" => id.to_i }.merge(record))
-      end
+      # assemble each key-value into the open structure output.
+      # Map all openstructs to an array.
+      output = required_records.map { |id, record| OpenStruct.new({ "id" => id.to_i }.merge(record)) }
     end
 
     return output
