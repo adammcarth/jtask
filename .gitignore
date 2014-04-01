@@ -2,4 +2,4 @@
 tmp
 doc
 .DS_Store
-*.sublime-workspace
+*.sublime*
