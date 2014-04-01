@@ -3,7 +3,11 @@ module Update
     # Check if user has specified a custom directory.
     unless dir
       # If not, a default folder is assigned.
-      dir = "models/"
+      if File.directory?("models/")
+        dir = "models/"
+      else
+        raise RuntimeError, "[JTask] The directory 'models/' doesn't exist in your current location. Please create it or refer to the documentation on how to change your file path."
+      end
     end
     original_file = File.read(File.join(dir, filename))
     objects = JSON.parse(original_file)
@@ -13,7 +17,7 @@ module Update
       # Update (or add) each parameter
       insert["#{id}"][k.to_s] = v
     end
-    
+
     # Re-write the file with the new version.
     File.write(File.join(dir, filename), insert.to_json)
 

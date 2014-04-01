@@ -3,7 +3,11 @@ module Save
     # Check if user has specified a custom directory.
     unless dir
       # If not, a default folder is assigned.
-      dir = "models/"
+      if File.directory?("models/")
+        dir = "models/"
+      else
+        raise RuntimeError, "[JTask] The directory 'models/' doesn't exist in your current location. Please create it or refer to the documentation on how to change your file path."
+      end
     end
     # Check if the file already exists
     unless File.exists?(File.join(dir, filename))
@@ -14,7 +18,7 @@ module Save
     unless parameters.is_a?(Hash)
       raise SyntaxError, "[JTask] Invalid value supplied to the parameters variable. Ensure your parameters are in the symbol hash form, eg - {name: \"Adam\", city: \"Melbourne\"}"
     end
-    
+
     original_file = File.read(File.join(dir, filename))
     objects = JSON.parse(original_file)
     # Set the id of the new object
@@ -25,10 +29,10 @@ module Save
       # No current objects exist yet, so set the id to 1
       nextid = 1
     end
-    
+
     # Remove last character "}" from file.
     insert = File.read(File.join(dir, filename))[0..-2]
-    
+
     insert << "," if (objects.to_a).first # add a comma if at least one object already exists
     insert << "\"#{nextid.to_s}\":"
     insert << parameters.to_json
@@ -36,7 +40,7 @@ module Save
     insert << "}"
     # Re-write the file with the new version.
     File.write(File.join(dir, filename), insert)
-    
+
     return true
   end
 end
