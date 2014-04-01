@@ -2,35 +2,58 @@
 
 JTask provides CRUD actions for storage of data in JSON format inside text files. It's very useful for times when databases cannot be used to store data, or a simple storage & retrieval mechanism is required. It can act just like a database, check it out:
 
-    require "jtask"
+``` ruby
+require "jtask"
 
-    JTask.save("preferences", {background_color: "black", font_size: "medium"})
-    #=> true
+JTask.save("preferences", {background_color: "black", font_size: "medium"})
+#=> true
 
-    JTask.get("preferences", 1)["font_size"]
-    #=> "medium"
+JTask.get("preferences", last: 1)["font_size"]
+#=> "medium"
+```
 
-The above example stores the settings in a file called `preferences` using JSON. We then get the object from the file with id `1`, and output the value of the `"font_size"` key.
+The above example stores the settings in a file called `preferences` using JSON. We then get the last object saved to the file and output the value of the `"font_size"` key.
 
 **Example of JTask storage file:**
 
-    {
-      "1": {
-        "background_colour": "black",
-        "font_size": "medium"
-      }
-    }
+``` json
+{
+  "1": {
+    "background_colour": "black",
+    "font_size": "medium"
+  }
+}
+```
 
-Sequential ID's are automatically assigned to JSON objects on save.
+JTask can even act as a management system for already exisiting json files. Please note that a few adjustments will need to be made to your files beforehand - check out the [JTask.convert()](https://github.com/adammcarthur/jtask/wiki/JTask.convert() "Configure existing json files for JTask") wiki guide for more information.
 
-### JTask.save(filename, parameters, dir=nil)
+## Getting Started
+``` bash
+gem install jtask
+```
+
+``` ruby
+# Include the jtask library where necassary
+require "jtask"
+
+# Tell JTask where your files are [optional]
+jtask.settings do |s|
+  s.file_dir = "path/to/jtask_files"
+end
+```
+
+### [JTask.save(filename, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.save() "View full guide")
 *Saves a hash of parameters to the requested file.*
 
-    JTask.save("foods", {entree: "cheese", main: "hamburger", desert: "cake"})
+``` ruby
+JTask.save("foods", {entree: "cheese", main: "hamburger", desert: "cake"})
+```
 
 You can use file extensions if you want (makes no difference), as well as set a custom directory for the file. The default directory JTask will look in is `/models`.
 
-    JTask.save("users.json", {username: "adam", twitter: "@adammcarth"}, "files/")
+``` ruby
+JTask.save("users.json", {username: "adam", twitter: "@adammcarth"}, "files/")
+```
 
 Notes:
 
@@ -38,77 +61,96 @@ Notes:
  - To prepare already existing files for JTask operations, they must only contain `{}` inside.
  - When setting a custom directory, ensure it ends with `/`.
 
-### JTask.get(filename, method=nil, dir=nil)
-*Retrieves stored JSON data from the file and returns a hash.*
+### [JTask.get(filename, method=nil, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.get() "View full guide")
+*Retrieves stored JSON data from the file and returns an OpenStruct.*
 
-    JTask.get("email_subscribers")
-
-    #=> [ {"id"=>1, "email"=>"gary@google.com"}, {"id"=>"2", "email"=>"blah"} ... ]
+``` ruby
+JTask.get("email_subscribers")
+#=> [ {"id"=>1, "email"=>"gary@google.com"}, {"id"=>"2", "email"=>"blah"} ... ]
+```
 
 As seen above - calling JTask.get() without a method argument will return **all** the records stored. Let's now try and get the 50th email subscriber's email address:
 
-    @subscriber = JTask.get("email_subscribers", 50)
-    #=> {"id"=>"50", "email"=>"yukihiro@matsumoto.net"}
+``` ruby
+@subscriber = JTask.get("email_subscribers", 50)
+#=> {"id"=>"50", "email"=>"yukihiro@matsumoto.net"}
 
-    @subscriber["email"]
-    #=> "yukihiro@matsumoto.net"
+@subscriber["email"]
+#=> "yukihiro@matsumoto.net"
+```
 
 JTask also comes with a few retrieval methods similar to Active Record. Let's get the **first and last** `n` email subscribers:
 
-    JTask.get("email_subscribers", first: 25)
-    #=> [ {"id" => 1, ...}, {"id" => 2, ...}, {"id" => 25, ...} ]
+``` ruby
+JTask.get("email_subscribers", first: 25)
+#=> [ {"id" => 1, ...}, {"id" => 2, ...}, {"id" => 25, ...} ]
 
-    JTask.get("email_subscribers", last: 1)
-    #=> {"id" => 365, "email" => "goo@goo.gl"}
+JTask.get("email_subscribers", last: 1)
+#=> {"id" => 365, "email" => "goo@goo.gl"}
+```
 
-### JTask.update(filename, id, parameters, dir=nil)
-*Updates the record with `id` with a new set of parameters.*
+### [JTask.update(filename, id, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.update() "View full guide")
+*Updates the `id` json object with a new set of parameters.*
 
-    JTask.update("ui_settings", 42, {show_ads: "no", background: "grey"})
+``` ruby
+JTask.update("ui_settings", 42, {show_ads: "no", background: "grey"})
+```
 
 JTask upgrades records gracefully - parameters already existing inside the JSON object will be replaced with the new value, whereas new parameters will be added.
 
-    # Original Version
-    { "id" => 42, "show_ads" => "yes" }
+``` ruby
+# Original Version
+{ "id" => 42, "show_ads" => "yes" }
 
-    # Updated Version
-    { "id" => 42, "show_ads" => "no", "background" => "grey" }
+# Updated Version
+{ "id" => 42, "show_ads" => "no", "background" => "grey" }
+```
 
 To completely remove parameters (the entire key-value pair) from objects, refer to the JTask.chop() method below.
 
-### JTask.destroy(filename, id, dir=nil)
+### [JTask.destroy(filename, id, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.destroy() "View full guide")
 *Removes an entire object from the file.*
 
-    JTask.destroy("twitter_names", 15)
+``` ruby
+JTask.destroy("twitter_names", 15)
+```
 
-### JTask.chop(filename, id, paramter, dir=nil)
+### [JTask.chop(filename, id, paramter, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.chop() "View full guide")
 *Removes an entire key-value pair (or parameter) from one or all of the file's objects.*
 
-    JTask.chop("users", 4, "session_data")
+``` ruby
+JTask.chop("users", 4, "session_data")
 
-    JTask.chop("users", :all, "session_data")
+JTask.chop("users", :all, "session_data")
+```
 
 Impact:
 
-    # Old Version
-    { "id" => 4, "user_id" => "p18573", "session_data" => "34F3jkdf9azfvVak2" }
+``` ruby
+# Old Version
+{ "id" => 4, "user_id" => "p18573", "session_data" => "34F3jkdf9azfvVak2" }
 
-    # New Version
-    { "id" => 4, "user_id" => "p18573" }
+# New Version
+{ "id" => 4, "user_id" => "p18573" }
+```
 
-The second example uses `:all` instead of an id. This would perform the same operation, but to all objects inside the target file (instead of a specific id).
+The second example uses `:all` instead of an id. This would perform the same operation, but to all objects inside the target file (instead of a specific id). [Make sure you read the Chop wiki page](https://github.com/adammcarthur/jtask/wiki/JTask.chop()) to learn more.
 
-### JTask.rename(filename, new, dir=nil)
+### [JTask.rename(filename, new, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.rename() "View full guide")
 *Simply renames the file to something different.*
 
-    JTask.rename("orders", "online_orders")
+``` ruby
+JTask.rename("orders", "online_orders")
+```
 
-### JTask.kill(filename, dir=nil)
+### [JTask.kill(filename, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.kill() "View full guide")
 *Completely removes the entire file specified from the system.*
 
-    # Proceed with caution, the will delete the entire
-    # file and it cannot be recovered.
-    JTask.kill("not_needed_anymore.json")
+``` ruby
+# Proceed with caution, the will delete the entire
+# file and it cannot be recovered.
+JTask.kill("not_needed_anymore.json")
+```
 
 ## Share your ideas and contribute
 
