@@ -8,7 +8,7 @@ require "jtask"
 JTask.save("preferences", {background_color: "black", font_size: "medium"})
 #=> true
 
-JTask.get("preferences", last: 1)["font_size"]
+JTask.get("preferences", last: 1).font_size
 #=> "medium"
 ```
 
@@ -66,16 +66,16 @@ Notes:
 
 ``` ruby
 JTask.get("email_subscribers")
-#=> [ {"id"=>1, "email"=>"gary@google.com"}, {"id"=>"2", "email"=>"blah"} ... ]
+#=> [ <OpenStruct "id"=1 "email"=>"gary@google.com">, <OpenStruct "id"=>2 "email"=>"blah"> ... ]
 ```
 
 As seen above - calling JTask.get() without a method argument will return **all** the records stored. Let's now try and get the 50th email subscriber's email address:
 
 ``` ruby
 @subscriber = JTask.get("email_subscribers", 50)
-#=> {"id"=>"50", "email"=>"yukihiro@matsumoto.net"}
+#=> <OpenStruct "id"="50" "email"="yukihiro@matsumoto.net">
 
-@subscriber["email"]
+@subscriber.email
 #=> "yukihiro@matsumoto.net"
 ```
 
@@ -83,10 +83,10 @@ JTask also comes with a few retrieval methods similar to Active Record. Let's ge
 
 ``` ruby
 JTask.get("email_subscribers", first: 25)
-#=> [ {"id" => 1, ...}, {"id" => 2, ...}, {"id" => 25, ...} ]
+#=> [ <OpenStruct "id"=1>, <OpenStruct "id"=2>, ..., <OpenStruct "id"=25> ]
 
 JTask.get("email_subscribers", last: 1)
-#=> {"id" => 365, "email" => "goo@goo.gl"}
+#=> <OpenStruct "id"=365 "email"="goo@goo.gl">
 ```
 
 ### [JTask.update(filename, id, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.update() "View full guide")
@@ -100,10 +100,10 @@ JTask upgrades records gracefully - parameters already existing inside the JSON 
 
 ``` ruby
 # Original Version
-{ "id" => 42, "show_ads" => "yes" }
+<OpenStruct "id"=42 "show_ads"="yes">
 
 # Updated Version
-{ "id" => 42, "show_ads" => "no", "background" => "grey" }
+<OpenStruct "id"=42 "show_ads"="no" "background"="grey">
 ```
 
 To completely remove parameters (the entire key-value pair) from objects, refer to the JTask.chop() method below.
@@ -128,10 +128,10 @@ Impact:
 
 ``` ruby
 # Old Version
-{ "id" => 4, "user_id" => "p18573", "session_data" => "34F3jkdf9azfvVak2" }
+<OpenStruct "id"=4 "user_id"="p18573" "session_data"="34F3jkdf9azfvVak2">
 
 # New Version
-{ "id" => 4, "user_id" => "p18573" }
+<OpenStruct "id"=4 "user_id"="p18573">
 ```
 
 The second example uses `:all` instead of an id. This would perform the same operation, but to all objects inside the target file (instead of a specific id). [Make sure you read the Chop wiki page](https://github.com/adammcarthur/jtask/wiki/JTask.chop()) to learn more.
