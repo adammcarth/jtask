@@ -1,5 +1,5 @@
 ###########################################################################
-# ` JTask v0.1.0 Beta                                                   ` #
+# ` JTask v0.2.0 Beta                                                   ` #
 # ` Provides CRUD actions for JSON files, plus a few extra goodies.     ` #
 # ` Created by Adam McArthur (@adammcarth)                              ` #
 # ` Released under the MIT licence                                      ` #
@@ -9,6 +9,7 @@
 class JTask
   # Dependencies
   require "rubygems"
+  require "ostruct"
   require "json"
 
   # Modules
