@@ -37,8 +37,8 @@ gem install jtask
 require "jtask"
 
 # Tell JTask where your files are [optional]
-jtask.settings do |s|
-  s.file_dir = "path/to/jtask_files"
+JTask.configure do |config|
+  config.file_dir = "path/to/jtask_files/"
 end
 ```
 

@@ -12,6 +12,9 @@ class JTask
   require "ostruct"
   require "json"
 
+  # Configuration
+  require "jtask/config"
+
   # Modules
   modules = ["save", "get", "update", "destroy", "chop", "rename", "kill"]
   modules.each do |m|
