@@ -121,46 +121,14 @@ To completely remove parameters (the entire key-value pair) from objects, refer 
 #### [JTask.destroy(filename, id, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.destroy() "View full guide")
 *Removes an entire object from the file.*
 
-``` ruby
-JTask.destroy("twitter_names.json", 15)
-```
-
 #### [JTask.chop(filename, id, paramter, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.chop() "View full guide")
 *Removes an entire key-value pair from one or all of the file's objects.*
-
-``` ruby
-JTask.chop("users.json", 4, "session_data")
-
-JTask.chop("users.json", :all, "session_data")
-```
-
-Impact:
-
-``` ruby
-# Old Version
-<OpenStruct "id"=4 "user_id"="p18573" "session_data"="34F3jkdf9azfvVak2">
-
-# New Version
-<OpenStruct "id"=4 "user_id"="p18573">
-```
-
-The second example uses `:all` instead of an id. This would perform the same operation, but to all objects inside the target file (instead of a specific id). [Make sure you read the Chop wiki page](https://github.com/adammcarthur/jtask/wiki/JTask.chop()) to learn more.
 
 #### [JTask.rename(filename, new, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.rename() "View full guide")
 *Simply renames the file to something different.*
 
-``` ruby
-JTask.rename("orders.json", "online_orders.json")
-```
-
 #### [JTask.kill(filename, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.kill() "View full guide")
 *Completely removes the entire file specified from the system.*
-
-``` ruby
-# Proceed with caution, the will delete the entire
-# file and it cannot be recovered.
-JTask.kill("not_needed_anymore.json")
-```
 
 ## Share your ideas and contribute
 
