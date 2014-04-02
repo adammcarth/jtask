@@ -76,14 +76,14 @@ Notes:
 
 ``` ruby
 JTask.get("email_subscribers.json")
-#=> [ <OpenStruct "id"=1 "email"=>"gary@google.com">, <OpenStruct "id"=>2 "email"=>"blah"> ... ]
+#=> [ <JTask::Get "id"=1 "email"=>"gary@google.com">, <JTask::Get "id"=>2 "email"=>"blah"> ... ]
 ```
 
 As seen above - calling JTask.get() without a method argument will return **all** the records stored. Let's now try and get the 50th email subscriber's email address:
 
 ``` ruby
 @subscriber = JTask.get("email_subscribers.json", 50)
-#=> <OpenStruct "id"="50" "email"="yukihiro@matsumoto.net">
+#=> <JTask::Get "id"="50" "email"="yukihiro@matsumoto.net">
 
 @subscriber.email
 #=> "yukihiro@matsumoto.net"
@@ -93,10 +93,10 @@ JTask also comes with a few retrieval methods similar to Active Record. Let's ge
 
 ``` ruby
 JTask.get("email_subscribers.json", first: 25)
-#=> [ <OpenStruct "id"=1>, <OpenStruct "id"=2>, ..., <OpenStruct "id"=25> ]
+#=> [ <JTask::Get "id"=1>, <JTask::Get "id"=2>, ..., <JTask::Get "id"=25> ]
 
 JTask.get("email_subscribers.json", last: 1)
-#=> <OpenStruct "id"=365 "email"="goo@goo.gl">
+#=> <JTask::Get "id"=365 "email"="goo@goo.gl">
 ```
 
 #### [JTask.update(filename, id, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.update() "View full guide")
@@ -110,10 +110,10 @@ JTask upgrades records gracefully - parameters already existing inside the JSON 
 
 ``` ruby
 # Original Version
-<OpenStruct "id"=42 "show_ads"="yes">
+<JTask::Get "id"=42 "show_ads"="yes">
 
 # Updated Version
-<OpenStruct "id"=42 "show_ads"="no" "background"="grey">
+<JTask::Get "id"=42 "show_ads"="no" "background"="grey">
 ```
 
 To completely remove parameters (the entire key-value pair) from objects, refer to the JTask.chop() method below.
