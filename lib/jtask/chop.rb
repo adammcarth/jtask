@@ -1,5 +1,5 @@
-module Chop
-  def chop(filename, id, parameter, dir=nil)
+class JTask
+  def self.chop(filename, id, parameter, dir=nil)
     # Check if user has specified a custom directory.
     unless dir
       # If not, a default folder is assigned.

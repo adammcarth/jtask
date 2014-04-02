@@ -15,17 +15,9 @@ class JTask
   # Configuration
   require "jtask/config"
 
-  # Modules
-  modules = ["save", "get", "update", "destroy", "chop", "rename", "kill"]
-  modules.each do |m|
-    require "jtask/#{m}"
+  # Tasks
+  tasks = ["save", "get", "update", "destroy", "chop", "rename", "kill", "convert"]
+  tasks.each do |task|
+    require "jtask/#{task}"
   end
-
-  extend Save
-  extend Get
-  extend Update
-  extend Destroy
-  extend Chop
-  extend Rename
-  extend Kill
 end

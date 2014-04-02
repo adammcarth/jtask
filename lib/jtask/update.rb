@@ -1,5 +1,5 @@
-module Update
-  def update(filename, id, parameters, dir=nil)
+class JTask
+  def self.update(filename, id, parameters, dir=nil)
     # Check if user has specified a custom directory.
     unless dir
       # If not, a default folder is assigned.

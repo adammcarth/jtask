@@ -1,8 +1,8 @@
 # JTask.get() by Adam McArthur
 # Retrieves stored JSON data from the file and returns a hash.
 
-module Get
-  def get(filename, method=nil, dir=nil)
+class JTask
+  def self.get(filename, method=nil, dir=nil)
     # Check if user has specified a custom directory.
     unless dir
       # If not, a default folder is assigned.

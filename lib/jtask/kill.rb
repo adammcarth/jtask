@@ -1,5 +1,5 @@
-module Kill
-  def kill(filename, dir=nil)
+class JTask
+  def self.kill(filename, dir=nil)
     # Check if user has specified a custom directory.
     unless dir
       # If not, a default folder is assigned.
