@@ -15,6 +15,9 @@ class JTask
   # Configuration
   require "jtask/config"
 
+  # Helpers
+  require "jtask/helpers"
+
   # Tasks
   tasks = ["save", "get", "update", "destroy", "chop", "rename", "kill", "convert"]
   tasks.each do |task|

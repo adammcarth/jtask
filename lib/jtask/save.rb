@@ -8,18 +8,13 @@
 # https://github.com/adammcarthur/jtask/wiki/JTask.save()
 
 require "json"
+require "jtask/helpers"
 
 class JTask
   def self.save(filename, parameters, dir=nil)
-    # Check if user has specified a custom directory.
-    unless dir
-      # If not, a default folder is assigned.
-      if File.directory?("models/")
-        dir = "models/"
-      else
-        raise RuntimeError, "[JTask] The directory 'models/' doesn't exist in your current location. Please create it or refer to the documentation on how to change your file path."
-      end
-    end
+    # Set the directory
+    dir = JTask::Helpers.set_directory(dir)
+
     # Check if the file already exists
     unless File.exists?(File.join(dir, filename))
       # Create the file since it doesn’t exist, and setup up for JSON.
