@@ -12,6 +12,27 @@ require "ostruct"
 require "jtask/helpers"
 
 class JTask
+  # Allows nested OpenStructs, refer to http://andreapavoni.com/blog/2013/4/create-recursive-openstruct-from-a-ruby-hash
+  # Credits: Andrea Pavoni (DeepStruct guru)
+  class Get < OpenStruct
+    def initialize(hash=nil)
+      @table = {}
+      @hash_table = {}
+      if hash
+        hash.each do |k,v|
+          @table[k.to_sym] = (v.is_a?(Hash) ? self.class.new(v) : v)
+          @hash_table[k.to_sym] = v
+          new_ostruct_member(k)
+        end
+      end
+    end
+    def to_h
+      @hash_table
+    end
+  end
+end
+
+class JTask
   def self.get(filename, method=nil, dir=nil)
     # Set the directory
     dir = JTask::Helpers.set_directory(dir)
@@ -30,7 +51,7 @@ class JTask
       id = method
 
       if objects["#{id}"]
-        output = OpenStruct.new({ "id" => id.to_i }.merge(objects["#{id}"]))
+        output = JTask::Get.new({ "id" => id.to_i }.merge(objects["#{id}"]))
       else
         # id supplied doesn't exist
         raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\"."
@@ -58,7 +79,7 @@ class JTask
       # Loop through each required record and
       # assemble each key-value into the open structure output.
       # Map all openstructs to an array.
-      output = required_records.map { |id, record| OpenStruct.new({ "id" => id.to_i }.merge(record)) }
+      output = required_records.map { |id, record| JTask::Get.new({ "id" => id.to_i }.merge(record)) }
     end
 
     return output
