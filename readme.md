@@ -5,10 +5,10 @@ JTask provides CRUD actions for storage of data in JSON format inside text files
 ``` ruby
 require "jtask"
 
-JTask.save("preferences", {background_color: "black", font_size: "medium"})
+JTask.save("preferences.json", {background_color: "black", font_size: "medium"})
 #=> true
 
-JTask.get("preferences", last: 1).font_size
+JTask.get("preferences.json", last: 1).font_size
 #=> "medium"
 ```
 
@@ -25,7 +25,7 @@ The above example stores the settings in a file called `preferences` using JSON.
 }
 ```
 
-JTask can even act as a management system for already exisiting json files. Please note that a few adjustments will need to be made to your files beforehand - check out the [JTask.convert()](https://github.com/adammcarthur/jtask/wiki/JTask.convert() "Configure existing json files for JTask") wiki guide for more information.
+JTask can even act as a management system for already exisiting json files. Please note that a few adjustments will need to be made to your files beforehand - check out the [JTask::Convert](https://github.com/adammcarthur/jtask/wiki/JTask::Convert "Configure existing json files for JTask") wiki guide for more information.
 
 ## Getting Started
 ``` bash
@@ -46,10 +46,10 @@ end
 *Saves a hash of parameters to the requested file.*
 
 ``` ruby
-JTask.save("foods", {entree: "cheese", main: "hamburger", desert: "cake"})
+JTask.save("foods.json", {entree: "cheese", main: "hamburger", desert: "cake"})
 ```
 
-You can use file extensions if you want (makes no difference), as well as set a custom directory for the file. The default directory JTask will look in is `/models`.
+Custom directories can be set each time (refer to below). The default directory JTask will look in is `/models`.
 
 ``` ruby
 JTask.save("users.json", {username: "adam", twitter: "@adammcarth"}, "files/")
@@ -65,14 +65,14 @@ Notes:
 *Retrieves stored JSON data from the file and returns an OpenStruct.*
 
 ``` ruby
-JTask.get("email_subscribers")
+JTask.get("email_subscribers.json")
 #=> [ <OpenStruct "id"=1 "email"=>"gary@google.com">, <OpenStruct "id"=>2 "email"=>"blah"> ... ]
 ```
 
 As seen above - calling JTask.get() without a method argument will return **all** the records stored. Let's now try and get the 50th email subscriber's email address:
 
 ``` ruby
-@subscriber = JTask.get("email_subscribers", 50)
+@subscriber = JTask.get("email_subscribers.json", 50)
 #=> <OpenStruct "id"="50" "email"="yukihiro@matsumoto.net">
 
 @subscriber.email
@@ -82,18 +82,18 @@ As seen above - calling JTask.get() without a method argument will return **all*
 JTask also comes with a few retrieval methods similar to Active Record. Let's get the **first and last** `n` email subscribers:
 
 ``` ruby
-JTask.get("email_subscribers", first: 25)
+JTask.get("email_subscribers.json", first: 25)
 #=> [ <OpenStruct "id"=1>, <OpenStruct "id"=2>, ..., <OpenStruct "id"=25> ]
 
-JTask.get("email_subscribers", last: 1)
+JTask.get("email_subscribers.json", last: 1)
 #=> <OpenStruct "id"=365 "email"="goo@goo.gl">
 ```
 
 ### [JTask.update(filename, id, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.update() "View full guide")
-*Updates the `id` json object with a new set of parameters.*
+*Updates an existing JSON object with a new set of values.*
 
 ``` ruby
-JTask.update("ui_settings", 42, {show_ads: "no", background: "grey"})
+JTask.update("ui_settings.json", 42, {show_ads: "no", background: "grey"})
 ```
 
 JTask upgrades records gracefully - parameters already existing inside the JSON object will be replaced with the new value, whereas new parameters will be added.
@@ -112,16 +112,16 @@ To completely remove parameters (the entire key-value pair) from objects, refer 
 *Removes an entire object from the file.*
 
 ``` ruby
-JTask.destroy("twitter_names", 15)
+JTask.destroy("twitter_names.json", 15)
 ```
 
 ### [JTask.chop(filename, id, paramter, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.chop() "View full guide")
-*Removes an entire key-value pair (or parameter) from one or all of the file's objects.*
+*Removes an entire key-value pair from one or all of the file's objects.*
 
 ``` ruby
-JTask.chop("users", 4, "session_data")
+JTask.chop("users.json", 4, "session_data")
 
-JTask.chop("users", :all, "session_data")
+JTask.chop("users.json", :all, "session_data")
 ```
 
 Impact:
@@ -140,7 +140,7 @@ The second example uses `:all` instead of an id. This would perform the same ope
 *Simply renames the file to something different.*
 
 ``` ruby
-JTask.rename("orders", "online_orders")
+JTask.rename("orders.json", "online_orders.json")
 ```
 
 ### [JTask.kill(filename, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.kill() "View full guide")
