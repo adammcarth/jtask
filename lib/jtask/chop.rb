@@ -1,3 +1,14 @@
+# JTask.chop()
+# Removes an entire key-value pair from one or all of the file's objects.
+# ------------------------------------------------------------------------------
+# Eg: JTask.chop("user_data.json", :all, "session_dump")
+# #=> true
+# ------------------------------------------------------------------------------
+# See wiki guide for more usage examples...
+# https://github.com/adammcarthur/jtask/wiki/JTask.chop()
+
+require "json"
+
 class JTask
   def self.chop(filename, id, parameter, dir=nil)
     # Check if user has specified a custom directory.

@@ -1,5 +1,14 @@
-# JTask.get() by Adam McArthur
-# Retrieves stored JSON data from the file and returns a hash.
+# JTask.get()
+# Retrieves stored JSON data from the file and returns an OpenStruct.
+# --------------------------------------------------------------------------------
+# Eg: JTask.get("test.json", 1) || JTask.get("test.json", first: 10)
+# #=> <OpenStruct id=x, ...>
+# --------------------------------------------------------------------------------
+# See wiki guide for more usage examples...
+# https://github.com/adammcarthur/jtask/wiki/JTask.get()
+
+require "json"
+require "ostruct"
 
 class JTask
   def self.get(filename, method=nil, dir=nil)

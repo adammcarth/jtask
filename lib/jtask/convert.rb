@@ -1,10 +1,19 @@
+# JTask::Convert
+# Prepares existing json files to be manipulated by JTask's methods.
+# -----------------------------------------------------------------------------------
+# Eg: JTask::Convert.json_file("wordpress_users_export.json")
+# #=> true
+# -----------------------------------------------------------------------------------
+# See wiki guide for more usage examples...
+# https://github.com/adammcarthur/jtask/wiki/JTask::Convert
+
 require "json"
 require "jtask/rename"
 require "jtask/save"
 
 class JTask
   module Convert
-    def self.existing_json_file(filename, dir=nil)
+    def self.json_file(filename, dir=nil)
       # Check if user has specified a custom directory.
       unless dir
         # If not, a default folder is assigned.
@@ -41,4 +50,4 @@ class JTask
   end
 end
 
-# JTask::Convert.existing_json_file("orders.json")
+# JTask::Convert.json_file("orders.json")

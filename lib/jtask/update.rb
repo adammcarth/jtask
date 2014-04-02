@@ -1,3 +1,14 @@
+# JTask.update()
+# Updates an existing JSON object with a new set of values.
+# ----------------------------------------------------------------------
+# Eg: JTask.update("clients.json", 4, new: "value")
+# #=> true
+# ----------------------------------------------------------------------
+# See wiki guide for more usage examples...
+# https://github.com/adammcarthur/jtask/wiki/JTask.update()
+
+require "json"
+
 class JTask
   def self.update(filename, id, parameters, dir=nil)
     # Check if user has specified a custom directory.

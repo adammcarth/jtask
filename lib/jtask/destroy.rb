@@ -1,3 +1,14 @@
+# JTask.destroy()
+# Removes an entire object from the file.
+# ------------------------------------------------------------------
+# Eg: JTask.destroy("orders.json", 5)
+# #=> true
+# ------------------------------------------------------------------
+# See wiki guide for more usage examples...
+# https://github.com/adammcarthur/jtask/wiki/JTask.destroy()
+
+require "json"
+
 class JTask
   def self.destroy(filename, id, dir=nil)
     # Check if user has specified a custom directory.

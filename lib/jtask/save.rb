@@ -1,3 +1,14 @@
+# JTask.save()
+# Saves a hash of parameters to the requested file.
+# --------------------------------------------------------------------
+# Eg: JTask.save("hello.json", {fname: "Adam", lname: "McArthur"})
+# #=> true
+# --------------------------------------------------------------------
+# See wiki guide for more usage examples...
+# https://github.com/adammcarthur/jtask/wiki/JTask.save()
+
+require "json"
+
 class JTask
   def self.save(filename, parameters, dir=nil)
     # Check if user has specified a custom directory.
