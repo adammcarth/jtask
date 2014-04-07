@@ -54,7 +54,7 @@ class JTask
         output = JTask::Get.new({ "id" => id.to_i }.merge(objects["#{id}"]))
       else
         # id supplied doesn't exist
-        raise NameError, "[JTask] The id #{method} could not be found in the file \"#{dir + filename}\"."
+        raise NameError, "[JTask] The id #{id} could not be found in the file \"#{dir + filename}\"."
       end
     else
       # Method could be either blank, invalid or a "first/last" hash.
