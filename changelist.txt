@@ -1,3 +1,0 @@
-Moved changelist to:
-
-https://github.com/adammcarthur/jtask/releases
