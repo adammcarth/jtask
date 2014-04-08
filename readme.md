@@ -16,7 +16,7 @@ The above example stores the settings in a file called `preferences.json`. We th
 
 ``` bash
 JTask.get("clients.json", 1600)
-#=> NameError: [JTask] The id 1600 could not be found in the file "models/clients.json".
+#=> NameError: [JTask] Couldn't find an ID of '1600' in the file 'models/clients.json'.
 ```
 
 The above error makes mention of an id number. As central to many CRUD frameworks, JTask operates around id numbers to manipulate the objects. JTask automatically calculates and assigns these sequential id numbers for you.
@@ -80,14 +80,14 @@ Notes:
 
 ``` ruby
 JTask.get("email_subscribers.json")
-#=> [ <JTask::Get "id"=1 "email"=>"gary@google.com">, <JTask::Get "id"=>2 "email"=>"blah"> ... ]
+#=> [ #<JTask::Get "id"=1 "email"="gary@google.com">, #<JTask::Get "id"=2 "email"="blah"> ... ]
 ```
 
 As seen above - calling JTask.get() without a method argument will return **all** the records stored. Let's now try and get the 50th email subscriber's email address:
 
 ``` ruby
 @subscriber = JTask.get("email_subscribers.json", 50)
-#=> <JTask::Get "id"="50" "email"="yukihiro@matsumoto.net">
+#=> #<JTask::Get "id"="50" "email"="yukihiro@matsumoto.net">
 
 @subscriber.email
 #=> "yukihiro@matsumoto.net"
@@ -97,10 +97,10 @@ JTask also comes with a few retrieval methods similar to Active Record. Let's ge
 
 ``` ruby
 JTask.get("email_subscribers.json", first: 25)
-#=> [ <JTask::Get "id"=1>, <JTask::Get "id"=2>, ..., <JTask::Get "id"=25> ]
+#=> [ #<JTask::Get "id"=1>, #<JTask::Get "id"=2>, ..., #<JTask::Get "id"=25> ]
 
 JTask.get("email_subscribers.json", last: 1)
-#=> <JTask::Get "id"=365 "email"="goo@goo.gl">
+#=> #<JTask::Get "id"=365 "email"="goo@goo.gl">
 ```
 
 ---
@@ -116,10 +116,10 @@ JTask upgrades records gracefully - parameters already existing inside the JSON 
 
 ``` ruby
 # Original Version
-<JTask::Get "id"=42 "show_ads"="yes">
+#<JTask::Get "id"=42 "show_ads"="yes">
 
 # Updated Version
-<JTask::Get "id"=42 "show_ads"="no" "background"="grey">
+#<JTask::Get "id"=42 "show_ads"="no" "background"="grey">
 ```
 
 To completely remove parameters (the entire key-value pair) from objects, refer to the JTask.chop() method below.
