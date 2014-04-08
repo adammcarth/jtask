@@ -37,48 +37,66 @@ class JTask
     # Set the directory
     dir = JTask::Helpers.set_directory(dir)
 
+    # Check the file exists
+    unless File.exists?(File.join(dir, filename))
+      raise NameError, "[JTask] Couldn't find the file specified at '#{dir}#{filename}'. Try running JTask.save(\"#{filename}\") to create a blank file."
+    end
+
     # Parse the file
     original_file = File.read(File.join(dir, filename))
     objects = JSON.parse(original_file)
 
     # Work out which retrieval method is wanted.
-    # An integer indicates we want to find a single record by id.
-    # A hash indicates the first/last method has been used.
+    @method_type = JTask::Helpers.verify_method(method)
 
-    # Check for integer
-    if method.is_a?(Integer)
+    # Method is a specific id (integer)
+    if @method_type == "id"
       # Our method will be the id - lets alias it:
       id = method
-
       if objects["#{id}"]
         output = JTask::Get.new({ "id" => id.to_i }.merge(objects["#{id}"]))
       else
-        # id supplied doesn't exist
-        raise NameError, "[JTask] The id #{id} could not be found in the file \"#{dir + filename}\"."
+        raise NameError, "[JTask] Couldn't find an ID of '#{id}' in the file '#{dir}#{filename}'."
       end
-    else
-      # Method could be either blank, invalid or a "first/last" hash.
-      begin
-        # Treat method as a hash
-        # Assemble hashes of the required records, as specified by the user.
-        if method[:first]
-          required_records = Hash[(objects.to_a).first(method[:first].to_i)]
-        elsif method[:last]
-          required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse] # wow!
+    # Method is an array of specific id's (integers)
+    elsif @method_type == "id_arr"
+      if objects.count > 0
+        required_records = Hash.new
+        method.each do |id|
+          if objects["#{id}"]
+            required_records["#{id}"] = objects["#{id}"]
+          else
+            output = nil
+          end
         end
-      # Rescue to prevent '[]' nil class error if method is empty
-      rescue
-        if method == nil
-          # We want all the records since no get method is supplied
-          required_records = objects
-        else
-          # Unrecognisable value used as the method, crash immediatly.
-          raise SyntaxError, "[JTask] Invalid value given for the get method."
-        end
+      else
+        output = nil
       end
-      # Loop through each required record and
-      # assemble each key-value into the open structure output.
-      # Map all openstructs to an array.
+    # Method is a 'first: x' hash
+    elsif @method_type == "first"
+      if objects.count > 0
+        required_records = Hash[(objects.to_a).first(method[:first].to_i)]
+      else
+        output = nil
+      end
+    # Method is a 'last: x' hash
+    elsif @method_type == "last"
+      if objects.count > 0
+        required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse] # grab a beer if you want
+      else
+        output = nil
+      end
+    # If method is the :all symbol OR no method supplied (all objects required)
+    elsif @method_type == "all"
+      if objects.count > 0
+        required_records = objects
+      else
+        output = nil
+      end
+    end
+
+    # For methods where more than one hash is present, they still need to be processed into an array + ostruct.
+    if required_records
       output = required_records.map { |id, record| JTask::Get.new({ "id" => id.to_i }.merge(record)) }
     end
 
