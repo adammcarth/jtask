@@ -15,8 +15,8 @@ JTask.get("preferences.json", last: 1).font_size
 The above example stores the settings in a file called `preferences.json`. We then get the last object saved to the file and output the value of the `"font_size"` key. JTask syntax is designed to be simple and elegant to use, making it easy to remember and enjoyable to work with. It even has it's own built in error handler:
 
 ``` bash
-JTask.get("clients.json", 1600)
-#=> NameError: [JTask] Couldn't find an ID of '1600' in the file 'models/clients.json'.
+JTask.get("clients.json", :all)
+#=> NameError: [JTask] Couldn't find the file specified at 'models/clients.json'. Try running JTask.save("clients.json") to setup a blank file.
 ```
 
 The above error makes mention of an id number. As central to many CRUD frameworks, JTask operates around id numbers to manipulate the objects. JTask automatically calculates and assigns these sequential id numbers for you.
