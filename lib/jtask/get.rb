@@ -9,7 +9,7 @@
 
 require "json"
 require "ostruct"
-require "jtask/helpers"
+require "./helpers"
 
 class JTask
   # Allows nested OpenStructs, refer to http://andreapavoni.com/blog/2013/4/create-recursive-openstruct-from-a-ruby-hash
@@ -39,7 +39,7 @@ class JTask
 
     # Check the file exists
     unless File.exists?(File.join(dir, filename))
-      raise NameError, "[JTask] Couldn't find the file specified at '#{dir}#{filename}'. Try running JTask.save(\"#{filename}\") to create a blank file."
+      raise NameError, "[JTask] Couldn't find the file specified at '#{dir}#{filename}'. Try running JTask.save(\"#{filename}\") to setup a blank file."
     end
 
     # Parse the file
@@ -49,50 +49,39 @@ class JTask
     # Work out which retrieval method is wanted.
     @method_type = JTask::Helpers.verify_method(method)
 
+    # First off lets quickly make sure the file has at least one object
+    unless objects.count > 0
+      return nil
+    end
+
     # Method is a specific id (integer)
-    if @method_type == "id"
+    if @method_type == :id
       # Our method will be the id - lets alias it:
       id = method
       if objects["#{id}"]
         output = JTask::Get.new({ "id" => id.to_i }.merge(objects["#{id}"]))
       else
-        raise NameError, "[JTask] Couldn't find an ID of '#{id}' in the file '#{dir}#{filename}'."
+        output = nil
       end
     # Method is an array of specific id's (integers)
-    elsif @method_type == "id_arr"
-      if objects.count > 0
-        required_records = Hash.new
-        method.each do |id|
-          if objects["#{id}"]
-            required_records["#{id}"] = objects["#{id}"]
-          else
-            output = nil
-          end
+    elsif @method_type == :id_array
+      required_records = Hash.new
+      method.each do |id|
+        if objects["#{id}"]
+          required_records["#{id}"] = objects["#{id}"]
+        else
+          output = nil
         end
-      else
-        output = nil
       end
     # Method is a 'first: x' hash
-    elsif @method_type == "first"
-      if objects.count > 0
-        required_records = Hash[(objects.to_a).first(method[:first].to_i)]
-      else
-        output = nil
-      end
+    elsif @method_type == :first
+      required_records = Hash[(objects.to_a).first(method[:first].to_i)]
     # Method is a 'last: x' hash
-    elsif @method_type == "last"
-      if objects.count > 0
-        required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse] # grab a beer if you want
-      else
-        output = nil
-      end
+    elsif @method_type == :last
+      required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse] # grab a beer if you want
     # If method is the :all symbol OR no method supplied (all objects required)
-    elsif @method_type == "all"
-      if objects.count > 0
-        required_records = objects
-      else
-        output = nil
-      end
+    elsif @method_type == :all
+      required_records = objects
     end
 
     # For methods where more than one hash is present, they still need to be processed into an array + ostruct.

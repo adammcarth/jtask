@@ -1,4 +1,4 @@
-require "jtask/config"
+require "./config"
 
 class JTask
   module Helpers
@@ -38,11 +38,11 @@ class JTask
     def self.verify_method(method=nil)
       # No method was passed to JTask (eg - JTask.get("orders.json") should get all orders)
       if !method
-        output = "all"
+        output = :all
 
       # Single id given
       elsif method.is_a?(Integer)
-        output = "id"
+        output = :id
 
       # Array of ids
       elsif method.is_a?(Array)
@@ -53,15 +53,15 @@ class JTask
           end
         end
 
-        output = "id_arr"
+        output = :id_array
 
       # first: x, last:x hash given.
       elsif method.is_a?(Hash)
         # Ensure that 'first' or 'last' have been used.
         if method[:first]
-          output = "first"
+          output = :first
         elsif method[:last]
-          output = "last"
+          output = :last
         else
           # Invalid hash supplied
           raise NameError, "[JTask] Your method hash must look like { first/last: int }."
@@ -76,7 +76,7 @@ class JTask
       elsif method.is_a?(Symbol)
         # Ensure only ':all' has been used.
         if method == :all
-          output = "all"
+          output = :all
         else
           # Invalid symbol supplied
           raise NameError, "[JTask] The only symbol which may be used as a method is ':all'."
