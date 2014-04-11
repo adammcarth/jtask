@@ -25,8 +25,10 @@ class JTask
       raise SyntaxError, "[JTask] Invalid value supplied to the parameters variable. Ensure your parameters are in the symbol hash form, eg - {name: \"Adam\", city: \"Melbourne\"}"
     end
 
+    # Parse the file
     original_file = File.read(File.join(dir, filename))
     objects = JSON.parse(original_file)
+
     # Set the id of the new object
     if (objects.to_a).first
       # Add 1 to last object id
