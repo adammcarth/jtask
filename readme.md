@@ -54,7 +54,7 @@ Below you will find a very broad overview of how to use the most common JTask me
 
 ---
 
-#### [JTask.save(filename, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.save() "View full guide")
+#### [JTask.save(filename, parameters, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.save() "View full guide")
 *Saves a hash of parameters to the requested file.*
 
 ``` ruby
@@ -75,7 +75,7 @@ Notes:
 
 ---
 
-#### [JTask.get(filename, method=nil, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.get() "View full guide")
+#### [JTask.get(filename, method, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.get() "View full guide")
 *Retrieves stored JSON data from the file and returns an OpenStruct.*
 
 ``` ruby
@@ -105,7 +105,7 @@ JTask.get("email_subscribers.json", last: 1)
 
 ---
 
-#### [JTask.update(filename, id, parameters, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.update() "View full guide")
+#### [JTask.update(filename, id, parameters, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.update() "View full guide")
 *Updates an existing JSON object with a new set of values.*
 
 ``` ruby
@@ -126,22 +126,22 @@ To completely remove parameters (the entire key-value pair) from objects, refer 
 
 ---
 
-#### [JTask.destroy(filename, id, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.destroy() "View full guide")
+#### [JTask.destroy(filename, id, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.destroy() "View full guide")
 *Removes an entire object from the file.*
 
 ---
 
-#### [JTask.chop(filename, id, paramter, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.chop() "View full guide")
+#### [JTask.chop(filename, id, paramter, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.chop() "View full guide")
 *Removes an entire key-value pair from one or all of the file's objects.*
 
 ---
 
-#### [JTask.rename(filename, new, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.rename() "View full guide")
+#### [JTask.rename(filename, new, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.rename() "View full guide")
 *Simply renames the file to something different.*
 
 ---
 
-#### [JTask.kill(filename, dir=nil)](https://github.com/adammcarthur/jtask/wiki/JTask.kill() "View full guide")
+#### [JTask.kill(filename, dir)](https://github.com/adammcarthur/jtask/wiki/JTask.kill() "View full guide")
 *Completely removes the entire file specified from the system.*
 
 ---
