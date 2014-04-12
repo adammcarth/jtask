@@ -1,4 +1,4 @@
-require "./config"
+require "jtask/config"
 
 class JTask
   module Helpers

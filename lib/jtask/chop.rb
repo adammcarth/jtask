@@ -50,11 +50,15 @@ class JTask
         removed_version = objects["#{id}"].tap{ |object| object.delete(parameter) }
         objects["#{id}"] = removed_version
       end
-    elsif @method_type == :first
-      required_records = Hash[(objects.to_a).first(method[:first].to_i)]
-    elsif @method_type == :last
-      required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse]
     elsif @method_type == :first or @method_type == :last
+      if @method_type == :first
+        required_records = Hash[(objects.to_a).first(method[:first].to_i)]
+      end
+
+      if @method_type == :last
+        required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse]
+      end
+
       id_array = Array.new
       required_records.each do |id, object|
         id_array << id

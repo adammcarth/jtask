@@ -8,7 +8,7 @@
 # https://github.com/adammcarthur/jtask/wiki/JTask.update()
 
 require "json"
-require "./helpers"
+require "jtask/helpers"
 
 class JTask
   def self.update(filename, method, parameters, dir=nil)
@@ -47,11 +47,15 @@ class JTask
           objects["#{id}"][k.to_s] = v
         end
       end
-    elsif @method_type == :first
-      required_records = Hash[(objects.to_a).first(method[:first].to_i)]
-    elsif @method_type == :last
-      required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse]
     elsif @method_type == :first or @method_type == :last
+      if @method_type == :first
+        required_records = Hash[(objects.to_a).first(method[:first].to_i)]
+      end
+
+      if @method_type == :last
+        required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse]
+      end
+
       id_array = Array.new
       required_records.each do |id, object|
         id_array << id

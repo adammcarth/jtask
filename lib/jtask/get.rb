@@ -9,7 +9,7 @@
 
 require "json"
 require "ostruct"
-require "./helpers"
+require "jtask/helpers"
 
 class JTask
   # Allows nested OpenStructs, refer to http://andreapavoni.com/blog/2013/4/create-recursive-openstruct-from-a-ruby-hash

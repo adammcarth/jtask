@@ -8,7 +8,7 @@
 # https://github.com/adammcarthur/jtask/wiki/JTask.destroy()
 
 require "json"
-require "./helpers"
+require "jtask/helpers"
 
 class JTask
   def self.destroy(filename, method=nil, dir=nil)
@@ -48,11 +48,15 @@ class JTask
       method.each do |id|
         new_version = objects.tap { |object| object.delete("#{id}") }
       end
-    elsif @method_type == :first
-      required_records = Hash[(objects.to_a).first(method[:first].to_i)]
-    elsif @method_type == :last
-      required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse]
     elsif @method_type == :first or @method_type == :last
+      if @method_type == :first
+        required_records = Hash[(objects.to_a).first(method[:first].to_i)]
+      end
+
+      if @method_type == :last
+        required_records = Hash[(objects.to_a).last(method[:last].to_i).reverse]
+      end
+
       id_array = Array.new
       required_records.each do |id, object|
         id_array << id
@@ -63,9 +67,6 @@ class JTask
     elsif @method_type == :all
       new_version = "{}"
     end
-
-    # Delete the object with id n from the objects hash
-
 
     # Re-write the file with the new version.
     File.write(File.join(dir, filename), new_version.to_json)
