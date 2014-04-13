@@ -1,4 +1,4 @@
-# JTask [![Gem Version](http://img.shields.io/gem/v/jtask.svg)](https://rubygems.org/gem/jtask)
+# JTask [![Gem Version](http://img.shields.io/gem/v/jtask.svg)](https://rubygems.org/gems/jtask)
 
 JTask provides CRUD actions for storage of data in JSON format inside text files. It's very useful for times when databases cannot be used to store data, or a simple storage & retrieval mechanism is required. It can act just like a database, check it out:
 
