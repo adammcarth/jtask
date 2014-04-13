@@ -84,7 +84,7 @@ class JTask
 
       # Something unrecognisable (probably a string) has been used incorrectly.
       else
-        raise NameError, "[JTask] Invalid value passed to the method parameter."
+        raise SyntaxError, "[JTask] Invalid value passed to the method parameter."
       end
 
       # Output the method type
