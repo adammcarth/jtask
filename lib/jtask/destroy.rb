@@ -65,7 +65,7 @@ class JTask
         new_version = objects.tap { |object| object.delete("#{id}") }
       end
     elsif @method_type == :all
-      new_version = "{}"
+      new_version = Hash.new
     end
 
     # Re-write the file with the new version.
