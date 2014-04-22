@@ -1,6 +1,4 @@
-# JTask [![Gem Version](http://img.shields.io/gem/v/jtask.svg)](https://rubygems.org/gems/jtask) [![Build Status](https://travis-ci.org/adammcarthur/jtask.svg?branch=master)](https://travis-ci.org/adammcarthur/jtask) [![Code Climate](http://img.shields.io/codeclimate/github/adammcarthur/jtask.svg)](https://codeclimate.com/github/adammcarthur/jtask)
-
-> JTask - "Probably useful"
+# JTask ( [![Gem Version](http://img.shields.io/gem/v/jtask.svg)](https://rubygems.org/gems/jtask) [![Build Status](https://travis-ci.org/adammcarthur/jtask.svg?branch=master)](https://travis-ci.org/adammcarthur/jtask) [![Code Climate](http://img.shields.io/codeclimate/github/adammcarthur/jtask.svg)](https://codeclimate.com/github/adammcarthur/jtask) ).save
 
 JTask provides CRUD actions for storage of data in JSON format inside text files. It's very useful for times when databases cannot be used to store data, or a simple storage & retrieval mechanism is required. It can act just like a database, check it out:
 
@@ -152,6 +150,10 @@ To completely remove parameters (the entire key-value pair) from objects, refer 
 
 I'd love to here what you plan to use JTask for. [Let me know via twitter](https://twitter.com/adammcarth), or email your thoughts and ideas to [adam@adammcarthur.net](mailto:adam@adammcarthur.net).
 
-To contribute to the project, fork it, send a pull request and I'll review your changes. Check out the [enhancement suggestions page](https://github.com/adammcarthur/jtask/issues?labels=enhancement) to see what still needs to be done.
+**My favourite feedback so far:**
+
+> "JTask is probably useful."
+
+To contribute to the project, fork it (also create a new feature branch if your changes are substantial), send a pull request and I'll review your changes. Check out the [enhancement suggestions page](https://github.com/adammcarthur/jtask/issues?labels=enhancement) to see what still needs to be done.
 
 \- Adam
