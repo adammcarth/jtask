@@ -9,6 +9,7 @@
 
 require "json"
 require "jtask/helpers"
+require "time"
 
 class JTask
   def self.save(filename, parameters, dir=nil)
@@ -37,6 +38,9 @@ class JTask
       # No current objects exist yet, so set the id to 1
       nextid = 1
     end
+
+    # Add created_at timestamp to the new record
+    parameters[:created_at] = Time.now
 
     # Remove last character "}" from file.
     insert = File.read(File.join(dir, filename))[0..-2]
