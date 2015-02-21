@@ -1,4 +1,4 @@
-# JTask ( [![Gem Version](http://img.shields.io/gem/v/jtask.svg)](https://rubygems.org/gems/jtask) [![Build Status](https://travis-ci.org/adammcarthur/jtask.svg?branch=master)](https://travis-ci.org/adammcarthur/jtask) [![Code Climate](http://img.shields.io/codeclimate/github/adammcarthur/jtask.svg)](https://codeclimate.com/github/adammcarthur/jtask) [![Inline docs](http://inch-ci.org/github/adammcarthur/jtask.svg)](http://inch-ci.org/github/adammcarthur/jtask) ).save
+# JTask ( [![Gem Version](http://img.shields.io/gem/v/jtask.svg)](https://rubygems.org/gems/jtask) [![Code Climate](http://img.shields.io/codeclimate/github/adammcarthur/jtask.svg)](https://codeclimate.com/github/adammcarthur/jtask) [![Inline docs](http://inch-ci.org/github/adammcarthur/jtask.svg)](http://inch-ci.org/github/adammcarthur/jtask) ).save
 
 JTask provides CRUD actions for storage of data in JSON format inside text files. It's very useful for times when databases cannot be used to store data, or a simple storage & retrieval mechanism is required. It can act just like a database, check it out:
 
